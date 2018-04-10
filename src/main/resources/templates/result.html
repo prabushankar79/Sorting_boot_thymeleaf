@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Random Number Sort Utility Results</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"/>
+
+</head>
+<body>
+	<h3>Random Number Sort Utility Results</h3>
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+    <th>Sort No</th>
+    <th>Before Sort</th>
+    <th>After Sort</th>
+    <th>Time Consumed(ms)</th>
+    <th>No of Swaps</th>
+    
+    </thead>
+    <tbody>
+    <tr th:each="result : ${results}">
+      <td th:text="${result.sortId}"></td>
+      <td th:text="${result.inputNumbers}"></td>
+      <td th:text="${result.sortedNumbers}"></td>
+      <td th:text="${result.timeConsumed}"></td>
+      <td th:text="${result.positionSwaped}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>

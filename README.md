@@ -1,2 +1,2 @@
 # Sorting_boot_thymeleaf
-Repository 
+This is sample application of sorting positive numbers using a combination of thymeleaf templated UI and backend service using spring boot
