@@ -7,6 +7,10 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.ApplicationContext;
 
 
+/**
+ * @author tempprmad
+ *
+ */
 @SpringBootApplication
     public class WebApplication extends SpringBootServletInitializer {
 

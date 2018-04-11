@@ -1,5 +1,6 @@
 package com.hm.numbersorter;
 
+import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,11 @@ public class NumberSorterController {
 	@Autowired
 	public PersistenceService persistenceService;
 
+	/**
+	 * Get method called from UI.
+	 * RequestParam determines whether or not to create random numbers.
+	 * @param  RequestParam - generateRandomNumbers, model and sortingInput 
+	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(
 			@RequestParam(name = "generateRandomNumbers", required = false, defaultValue = "false") boolean generateRandomNumbers,
@@ -36,37 +42,26 @@ public class NumberSorterController {
 					.collect(Collectors.joining(","));
 			sortingInput.setInputNumbers(randomNumbersString);
 		}
-		System.out.println("The value of generate Random number flag: " + generateRandomNumbers);
-		System.out.println("The value of generate Random number object: " + sortingInput.getGenerateRandomNumbers());
 		return "index";
 	}
 
+	/**
+	 * Post method called upon submission of form.
+	 * RequestParam determines whether or not to create random numbers.
+	 * @param  SortingInput, BindingResult, Model
+	 * sortingInput - holds the data to be processed by sorting service
+	 * bindingResult - holds validation failure if any and message
+	 * model - MVC Model class
+	 */
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public String result(@Valid SortingInput sortingInput, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "index";
 		}
-		sortingService.sort(sortingInput.getInputNumbers());
-		persistenceService.saveMetricsRecord(new SortingResult(sortingService.getSortMetrics()));
+		Map<String,String> sortMetricsMap = sortingService.sort(sortingInput.getInputNumbers());
+		persistenceService.saveMetricsRecord(new SortingResult(sortMetricsMap));
 		sortingInput.setResults(persistenceService.findAllWithLimit());
 		model.addAttribute("results", sortingInput.getResults());
-		sortingInput.getResults().stream().forEach(e -> {
-			System.out.println(e.getInputNumbers());
-			System.out.println(e.getSortedNumbers());
-			System.out.println(e.getPositionSwaped());
-			System.out.println(e.getTimeConsumed());
-		});
-		// model.addAttribute("numbers", sortingInput.getInputNumbers());
-		// String numberToSort = sortingInput.getInputNumbers();
-		// int[] arr = Arrays.stream(numberToSort.substring(0,
-		// numberToSort.length()).split(","))
-		// .map(String::trim).mapToInt(Integer::parseInt).toArray();
-		// int[] arr = {2,1,9,4,5,8};
-		// System.out.println("Numbers:" +Arrays.toString(arr));
-		// System.out.println("Number of swaps:"+SortUtil.sort(arr,0,arr.length-1));
-		// System.out.println("Number of swaps:"+SortUtil.sort(arr));
-		// model.addAttribute("content", Arrays.toString(arr));
 		return "result";
 	}
-
 }

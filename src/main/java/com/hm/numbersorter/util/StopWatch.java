@@ -1,5 +1,11 @@
 package com.hm.numbersorter.util;
 
+/**
+ * @author prabu 
+ * 
+ * This class is a Util class just to calculate the elapsed time between operation start and operation end
+ */
+
 public class StopWatch {
 
 	private final long startTime;
