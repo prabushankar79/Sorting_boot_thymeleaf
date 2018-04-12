@@ -21,8 +21,9 @@ public interface SortingService {
 	 */
 
 	default int[] commaStringToIntArray(String commaString) {
-		int[] intNumbers = Arrays.stream(commaString.substring(0, commaString.length()).split(",")).map(String::trim)
-				.mapToInt(Integer::parseInt).toArray();
+		int[] intNumbers = Arrays.stream(commaString.split(",")).map(String::trim)
+			.mapToInt(Integer::parseInt).toArray();
+
 		return intNumbers;
 	}
 
