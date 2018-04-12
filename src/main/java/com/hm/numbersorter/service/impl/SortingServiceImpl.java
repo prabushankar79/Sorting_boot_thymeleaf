@@ -1,10 +1,14 @@
 package com.hm.numbersorter.service.impl;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import com.hm.numbersorter.NumberSorterController;
 import com.hm.numbersorter.service.SortingService;
 import com.hm.numbersorter.util.StopWatch;
 
@@ -18,22 +22,32 @@ import com.hm.numbersorter.util.StopWatch;
 @Service
 public class SortingServiceImpl implements SortingService {
 
+	private static final Logger logger = LoggerFactory.getLogger(SortingServiceImpl.class);
+	
 	public int swapCounter = 0;
 
 	public Map<String, String> sortingMetricsMap = new HashMap<String, String>();
 
+	/**
+	 * This is a wrapper function sets the metrics in a hashmap and returns.
+	 * 
+	 * @param inputNumbers
+	 *            - Comma delimited string
+	 * 
+	 * @return Map<String,String> - contains the sort metrics
+	 */
+
 	@Override
 	public Map<String, String> sort(String commaStringNumbers) {
-		// TODO Auto-generated method stub
-		System.out.println("Checking Lambda before" + commaStringNumbers);
+		Assert.hasLength(commaStringNumbers, "Input Number can't be empty");
 		int[] inputNumbers = CommaStringToIntArray(commaStringNumbers);
-		System.out.println("Checking Lambda " + Arrays.toString(inputNumbers));
 		StopWatch stopWatch = StopWatch.start();
 		int noOfSwaps = doSort(inputNumbers, 0, inputNumbers.length - 1);
 		sortingMetricsMap.put("inputNumbers", commaStringNumbers);
 		sortingMetricsMap.put("sortedNumbers", IntArrayToCommaString(inputNumbers));
 		sortingMetricsMap.put("timeConsumed", String.valueOf(stopWatch.elapsed()));
 		sortingMetricsMap.put("positionSwaped", String.valueOf(noOfSwaps));
+		logger.debug("The Sort metrics are "+ sortingMetricsMap);
 		swapCounter = 0;
 		return sortingMetricsMap;
 	}
@@ -56,8 +70,6 @@ public class SortingServiceImpl implements SortingService {
 
 			int pivot = partition(arrToSort, startIndex, endIndex);
 
-			// Recursively sort elements before
-			// partition and after partition
 			doSort(arrToSort, startIndex, pivot - 1);
 			doSort(arrToSort, pivot + 1, endIndex);
 		}
@@ -91,9 +103,7 @@ public class SortingServiceImpl implements SortingService {
 				int temp = arrToSort[indexLow];
 				arrToSort[indexLow] = arrToSort[j];
 				arrToSort[j] = temp;
-				System.out.println("value of element " + arrToSort[j] + " Array " + Arrays.toString(arrToSort));
 				swapCounter++;
-				System.out.println("Swap counter " + swapCounter);
 			}
 		}
 
@@ -102,9 +112,6 @@ public class SortingServiceImpl implements SortingService {
 		arrToSort[indexLow + 1] = arrToSort[high];
 		arrToSort[high] = temp;
 		swapCounter++;
-		System.out
-				.println("value of element outer " + arrToSort[indexLow + 1] + " Array " + Arrays.toString(arrToSort));
-
 		return indexLow + 1;
 	}
 

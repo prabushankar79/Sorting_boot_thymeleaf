@@ -6,6 +6,8 @@ This is sample application of sorting positive numbers using a combination of th
 
 Java 8 should be installed to run this application and this application can be run as a individual jar file and available at default port number 8080 i.e localhost:8080
 
+Once the code is downloaded onto IDE, Please make sure that JDK 1.8 used as workspace default to avoid maven failiure.
+
 ## Solution
 
 1. Relying on ThymeLeaf for easier template

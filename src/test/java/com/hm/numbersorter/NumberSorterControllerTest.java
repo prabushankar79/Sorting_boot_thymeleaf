@@ -1,15 +1,15 @@
 package com.hm.numbersorter;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.tomcat.util.file.Matcher;
 import org.junit.Assert;
 
 //import static org.springframework.test.web.servlet.result.ModelResultMatchers;
@@ -20,16 +20,20 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.hm.numbersorter.service.SortingService;
-
+/**
+ * 
+ * @author prabu
+ *
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
-//@AutoConfigureMockMvc
 public class NumberSorterControllerTest {
 
 	  @Autowired
@@ -37,7 +41,7 @@ public class NumberSorterControllerTest {
 
 	  private MockMvc mockMvc;
 	  
-	  @Autowired
+	  @MockBean
 	  private SortingService sortingService;
 
 
@@ -66,7 +70,6 @@ public class NumberSorterControllerTest {
 				Assert.fail();
 
 			}
-
 	  }
 
 	  @Test
@@ -78,30 +81,54 @@ public class NumberSorterControllerTest {
 				Assert.fail();
 
 			}
-}
-		//@Test
+	  }
+		@Test
 		public void testPostMethod(){
-			String randomNumber = "4,5,2,9,1";
+			String inputNumbers = "4,5,2,9,1";
+			String sortedNumbers = "1,2,4,5,9";
+			String timeConsumed = "2";
+			String positionSwaped = "5";
+
+			Map<String,String> sortMetricsMap = new HashMap<String,String>();
+			sortMetricsMap.put("inputNumbers",inputNumbers);
+			sortMetricsMap.put("sortedNumbers",sortedNumbers);
+			sortMetricsMap.put("timeConsumed",timeConsumed);
+			sortMetricsMap.put("positionSwaped",positionSwaped);
+
+			when(sortingService.sort(inputNumbers)).thenReturn(sortMetricsMap);
 			try {
-				mockMvc.perform(post("/"))
-					.andExpect(status().isOk());
-					//.andExpect(view().name("result"));
+				mockMvc.perform(post("/").param("inputNumbers", inputNumbers))
+					.andExpect(status().isOk())
+					.andExpect(view().name("result"))
+					.andExpect(model().attributeExists("results"));
 			} catch (Exception e) {
 				Assert.fail();
 			}
 		}
 
-	    //@Test
-	    public void testSortingMetrics() {
+		@Test
+		public void testPostMethodWithInvalidInput(){
+			String inputNumbers = "4,5,2,9,1,";
+			String sortedNumbers = "1,2,4,5,9";
+			String timeConsumed = "2";
+			String positionSwaped = "5";
 
-	    	String sortedNumbers = "1,2,4,5,9";
-	    	String inputNumbers = "4,5,2,9,1";
-	    	String expectedSwaps = "4";
-	    	Map<String,String> sortMetricsMap = sortingService.sort(inputNumbers);
-	    	assertThat(sortMetricsMap.get("inputNumbers")).isEqualTo(inputNumbers);
-	    	assertThat(sortMetricsMap.get("sortedNumbers")).isEqualTo(sortedNumbers);
-	    	assertThat(sortMetricsMap.get("positionSwaped")).isEqualTo(expectedSwaps);
+			Map<String,String> sortMetricsMap = new HashMap<String,String>();
+			sortMetricsMap.put("inputNumbers",inputNumbers);
+			sortMetricsMap.put("sortedNumbers",sortedNumbers);
+			sortMetricsMap.put("timeConsumed",timeConsumed);
+			sortMetricsMap.put("positionSwaped",positionSwaped);
 
-	    }
-
+			when(sortingService.sort(inputNumbers)).thenReturn(sortMetricsMap);
+			try {
+				mockMvc.perform(post("/").param("inputNumbers", inputNumbers))
+					.andExpect(status().isOk())
+					.andExpect(view().name("index"))
+					.andExpect(model().attributeDoesNotExist("results"))
+					.andExpect(model().attributeExists("sortingInput"));
+			} catch (Exception e) {
+				Assert.fail();
+			}
+		}
+		
 }

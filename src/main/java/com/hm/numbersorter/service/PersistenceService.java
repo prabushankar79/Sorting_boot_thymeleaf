@@ -12,7 +12,7 @@ import com.hm.numbersorter.entity.SortingResult;
  */
 
 public interface PersistenceService {
-
+	
 	public List<SortingResult> getAllMetricsRecords();
 
 	public SortingResult saveMetricsRecord(SortingResult sortingResult);

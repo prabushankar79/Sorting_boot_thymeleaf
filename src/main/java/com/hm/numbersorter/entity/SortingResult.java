@@ -17,7 +17,7 @@ import org.springframework.util.Assert;
  */
 @Entity
 @Table(name = "Sort_Result")
-@NamedNativeQuery(name = "SortingResult.findAllWithLimit", query = "SELECT * FROM Sort_Result order by Sort_Id desc limit 10", resultClass = SortingResult.class)
+@NamedNativeQuery(name = "SortingResult.findAllWithLimit", query = "SELECT * FROM Sort_Result order by Sort_Id desc limit :rowsLimit", resultClass = SortingResult.class)
 public class SortingResult {
 
 	@Id
@@ -39,6 +39,15 @@ public class SortingResult {
 
 	}
 
+	/**
+	 * Constructor takes four params as sortring metrics and holds the information
+	 * to be called by persistence service
+	 * 
+	 * @param inputNumbers
+	 * @param sortedNumbers
+	 * @param timeConsumed
+	 * @param positionSwaped
+	 */
 	public SortingResult(String inputNumbers, String sortedNumbers, String timeConsumed, String positionSwaped) {
 		this.inputNumbers = inputNumbers;
 		this.sortedNumbers = sortedNumbers;
@@ -46,6 +55,11 @@ public class SortingResult {
 		this.positionSwaped = positionSwaped;
 	}
 
+	/**
+	 * Consutuctore takes a map holds the required metrics
+	 * 
+	 * @param constructorMap
+	 */
 	public SortingResult(Map<String, String> constructorMap) {
 		Assert.notEmpty(constructorMap, "Sorting Results can't be empty");
 		this.inputNumbers = constructorMap.get("inputNumbers");

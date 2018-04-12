@@ -22,21 +22,19 @@ public class PersistenceServiceImpl implements PersistenceService {
 	@Autowired
 	private SortingResultRepo sortingResultsRepo;
 
+	public static final int rowsLimit = 10;
+	
 	@Override
 	public List<SortingResult> getAllMetricsRecords() {
-		// TODO Auto-generated method stub
 		return sortingResultsRepo.findAll();
 	}
 
 	public SortingResult saveMetricsRecord(SortingResult sortingResult) {
-		// TODO Auto-generated method stub
 		return sortingResultsRepo.save(sortingResult);
 	}
 
-	@Override
 	public List<SortingResult> findAllWithLimit() {
-		// TODO Auto-generated method stub
-		return sortingResultsRepo.findAllWithLimit();
+		return sortingResultsRepo.findAllWithLimit(rowsLimit);
 	}
 
 }

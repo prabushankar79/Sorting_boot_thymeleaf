@@ -2,6 +2,8 @@ package com.hm.numbersorter.repository;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
+
 import com.hm.numbersorter.entity.SortingResult;
 
 /**
@@ -12,5 +14,5 @@ import com.hm.numbersorter.entity.SortingResult;
 
 public interface SortingResultRepo extends JpaRepository<SortingResult, Integer> {
 
-	public List<SortingResult> findAllWithLimit();
+	public List<SortingResult> findAllWithLimit(@Param("rowsLimit") int rowsLimit);
 }

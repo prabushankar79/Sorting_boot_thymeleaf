@@ -49,6 +49,7 @@ public class SortingResultRepoTest  {
 
 	@Test
 	public void findAllWithLimitShouldReturnLimtedRecords() throws Exception {
+		final int limit = 10;
 		
 		this.entityManager.persist(new SortingResult("5,4,3,2,1","1,2,3,4,5","3","4"));
 		this.entityManager.persist(new SortingResult("6,7,3,4","3,4,6,7","4","5"));
@@ -63,8 +64,8 @@ public class SortingResultRepoTest  {
 		//11 th Record
 		this.entityManager.persist(new SortingResult("5,4,3,2,1","1,2,3,4,5","3","4"));
 		
-		List<SortingResult> sortingResultList = this.repository.findAllWithLimit();
-		assertThat(sortingResultList.size()).isEqualTo(10);
+		List<SortingResult> sortingResultList = this.repository.findAllWithLimit(limit);
+		assertThat(sortingResultList.size()).isEqualTo(limit);
 	}
 
 
