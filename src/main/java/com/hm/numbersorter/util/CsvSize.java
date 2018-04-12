@@ -28,7 +28,6 @@ import com.hm.numbersorter.util.CsvSize.List;
  * Supported types are:
  * {@code null} elements are considered not valid.
  *
- * @author Emmanuel Bernard
  */
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)

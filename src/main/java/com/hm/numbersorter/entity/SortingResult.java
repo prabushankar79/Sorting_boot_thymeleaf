@@ -12,8 +12,8 @@ import javax.persistence.Table;
 import org.springframework.util.Assert;
 
 /**
- * @author prabu This class is used as entity mapping class for the tables
- *         resides in H2 database
+ * This class is used as entity mapping class for the tables
+ * resides in H2 database
  */
 @Entity
 @Table(name = "Sort_Result")
@@ -40,7 +40,7 @@ public class SortingResult {
 	}
 
 	/**
-	 * Constructor takes four params as sortring metrics and holds the information
+	 * Constructor takes four parameters as sorting metrics and holds the information
 	 * to be called by persistence service
 	 * 
 	 * @param inputNumbers
@@ -56,7 +56,7 @@ public class SortingResult {
 	}
 
 	/**
-	 * Consutuctore takes a map holds the required metrics
+	 * Consutuctor takes a map holds the required metrics
 	 * 
 	 * @param constructorMap
 	 */
@@ -158,7 +158,7 @@ public class SortingResult {
 	 * set the positionSwaped.
 	 * 
 	 * @param positionSwaped
-	 *            (No of swaps occured during sort operation)
+	 *            (No of swaps occurred during sort operation)
 	 */
 
 	public void setPositionSwaped(String positionSwaped) {

@@ -51,4 +51,24 @@ public class SortingResultTest {
 		assertThat(sortingResult.getPositionSwaped()).isEqualTo(positionSwaped);
 	}
 
+	@Test
+	public void saveShouldPersistDataUsingSetter() throws Exception {
+		String inputNumbers = "5,1,2,8";
+		String sortedNumbers = "1,2,5,8";
+		String timeConsumed = "3";
+		String positionSwaped = "4";
+		SortingResult inputSortingResult = new SortingResult();
+		inputSortingResult.setInputNumbers(inputNumbers);
+		inputSortingResult.setSortedNumbers(sortedNumbers);
+		inputSortingResult.setTimeConsumed(timeConsumed);
+		inputSortingResult.setPositionSwaped(positionSwaped);
+		
+		SortingResult sortingResult = this.entityManager
+				.persistFlushFind(inputSortingResult);
+		assertThat(sortingResult.getInputNumbers()).isEqualTo(inputNumbers);
+		assertThat(sortingResult.getSortedNumbers()).isEqualTo(sortedNumbers);
+		assertThat(sortingResult.getTimeConsumed()).isEqualTo(timeConsumed);
+		assertThat(sortingResult.getPositionSwaped()).isEqualTo(positionSwaped);
+	}
+
 }

@@ -5,9 +5,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * @author prabu This interface is a Service interface to expose methods that
- *         can be used to perform the CREATE and RETRIEVE operation onto H2
- *         database entity
+ * This interface is a Service interface to expose methods that can be used to
+ * perform the CREATE and RETRIEVE operation onto H2 database entity
  * 
  */
 

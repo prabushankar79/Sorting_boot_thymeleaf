@@ -4,7 +4,10 @@ import java.util.Arrays;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
- 
+/**
+ *  This validator validates the number of Csv present in a whole String
+ *
+ */
 public class CsvValidator implements ConstraintValidator<CsvSize, String> {
  
 	private CsvSize csvSize;

@@ -13,9 +13,9 @@ import com.hm.numbersorter.service.SortingService;
 import com.hm.numbersorter.util.StopWatch;
 
 /**
- * @author prabu This class is a Implementation class of service interface and
- *         contains the implementation to perform the sort operation using
- *         QuickSort algorithm (last element as pivot)
+ * This class is a Implementation class of service interface and contains the
+ * implementation to perform the sort operation using QuickSort algorithm (last
+ * element as pivot)
  * 
  */
 
@@ -23,7 +23,7 @@ import com.hm.numbersorter.util.StopWatch;
 public class SortingServiceImpl implements SortingService {
 
 	private static final Logger logger = LoggerFactory.getLogger(SortingServiceImpl.class);
-	
+
 	public int swapCounter = 0;
 
 	public Map<String, String> sortingMetricsMap = new HashMap<String, String>();
@@ -47,7 +47,7 @@ public class SortingServiceImpl implements SortingService {
 		sortingMetricsMap.put("sortedNumbers", IntArrayToCommaString(inputNumbers));
 		sortingMetricsMap.put("timeConsumed", String.valueOf(stopWatch.elapsed()));
 		sortingMetricsMap.put("positionSwaped", String.valueOf(noOfSwaps));
-		logger.debug("The Sort metrics are "+ sortingMetricsMap);
+		logger.debug("The Sort metrics are " + sortingMetricsMap);
 		swapCounter = 0;
 		return sortingMetricsMap;
 	}

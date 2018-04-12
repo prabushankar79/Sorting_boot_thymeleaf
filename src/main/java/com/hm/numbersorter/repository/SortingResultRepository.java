@@ -7,12 +7,11 @@ import org.springframework.data.repository.query.Param;
 import com.hm.numbersorter.entity.SortingResult;
 
 /**
- * @author prabu 
  * This interface is a JPArepository to persist the data onto H2 database
  * 
  */
 
-public interface SortingResultRepo extends JpaRepository<SortingResult, Integer> {
+public interface SortingResultRepository extends JpaRepository<SortingResult, Integer> {
 
 	public List<SortingResult> findAllWithLimit(@Param("rowsLimit") int rowsLimit);
 }
