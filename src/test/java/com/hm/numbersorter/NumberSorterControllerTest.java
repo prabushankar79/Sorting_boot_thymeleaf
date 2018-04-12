@@ -133,7 +133,10 @@ public class NumberSorterControllerTest {
 	}
 
 	@Test
-	public void applicationContextTest() throws Exception {
+	/**
+	 * Run this test without having the application running otherwise it will fail obtaining the application context
+	 */
+	public void applicationContextTest() {
 		try {
 	    WebApplication.main(new String[] {});
 		}catch (Exception e) {

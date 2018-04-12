@@ -40,11 +40,11 @@ public class SortingServiceImpl implements SortingService {
 	@Override
 	public Map<String, String> sort(String commaStringNumbers) {
 		Assert.hasLength(commaStringNumbers, "Input Number can't be empty");
-		int[] inputNumbers = CommaStringToIntArray(commaStringNumbers);
+		int[] inputNumbers = commaStringToIntArray(commaStringNumbers);
 		StopWatch stopWatch = StopWatch.start();
 		int noOfSwaps = doSort(inputNumbers, 0, inputNumbers.length - 1);
 		sortingMetricsMap.put("inputNumbers", commaStringNumbers);
-		sortingMetricsMap.put("sortedNumbers", IntArrayToCommaString(inputNumbers));
+		sortingMetricsMap.put("sortedNumbers", intArrayToCommaString(inputNumbers));
 		sortingMetricsMap.put("timeConsumed", String.valueOf(stopWatch.elapsed()));
 		sortingMetricsMap.put("positionSwaped", String.valueOf(noOfSwaps));
 		logger.debug("The Sort metrics are " + sortingMetricsMap);

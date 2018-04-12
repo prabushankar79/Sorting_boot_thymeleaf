@@ -20,7 +20,7 @@ public interface SortingService {
 	 * @return intNumbers
 	 */
 
-	default int[] CommaStringToIntArray(String commaString) {
+	default int[] commaStringToIntArray(String commaString) {
 		int[] intNumbers = Arrays.stream(commaString.substring(0, commaString.length()).split(",")).map(String::trim)
 				.mapToInt(Integer::parseInt).toArray();
 		return intNumbers;
@@ -32,7 +32,7 @@ public interface SortingService {
 	 * @return commaString
 	 */
 
-	default String IntArrayToCommaString(int[] intNumbers) {
+	default String intArrayToCommaString(int[] intNumbers) {
 		String commaString = Arrays.stream(intNumbers).boxed().map(Object::toString).collect(Collectors.joining(","));
 		return commaString;
 	}
